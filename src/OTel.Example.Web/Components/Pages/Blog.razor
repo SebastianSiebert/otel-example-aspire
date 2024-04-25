@@ -1,0 +1,98 @@
+﻿@page "/blog"
+@using Bogus
+@rendermode InteractiveServer
+
+@inject NavigationManager Navigation
+@inject BlogPostApiClient BlogPostApiClient
+@inject BlogCommentApiClient BlogCommentApiClient
+
+<PageTitle>Blog</PageTitle>
+
+<h1>Blog</h1>
+
+@if (posts == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else
+{
+    <button class="btn btn-primary" @onclick=AddPost>Add Post</button>
+    <button class="btn btn-danger" @onclick=CauseError>Throw Error in Post Service</button>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Title</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var post in posts)
+        {
+            <tr>
+                <td>@post.Id</td>
+                <td>@post.PostedAt.ToString("f")</td>
+                <td>
+                        <a href="/blog/post/@post.Id">@post.Title</a>
+                </td>
+                <td>
+                    <button class="btn btn-primary" @onclick="() => AddComments(post.Id)">Add Comments</button>
+                    <button class="btn btn-danger" @onclick="() => DeletePost(post.Id)">Delete</button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<BlogPost>? posts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        posts = await BlogPostApiClient.GetPostsAsync();
+    }
+
+    private void GoToPost(int id)
+    {
+        Navigation.NavigateTo($"/blog/post/{id}");
+    }
+
+    private async Task AddPost()
+    {
+        var postFaker = new Faker<BlogPost>()
+            .CustomInstantiator(f =>
+                new BlogPost(0, f.Lorem.Word(), f.Lorem.Paragraphs(), f.Date.Recent()));
+
+        await BlogPostApiClient.CreatePostAsync(postFaker.Generate());
+
+        posts = await BlogPostApiClient.GetPostsAsync();
+    }
+
+    private async Task AddComments(int id)
+    {
+        var commentFaker = new Faker<BlogComment>()
+            .CustomInstantiator(f =>
+                new BlogComment(0, id, f.Internet.UserName(), f.Hacker.Phrase(), f.Date.RecentOffset()));
+
+        foreach (var comment in commentFaker.GenerateBetween(1, 5))
+        {
+            await BlogCommentApiClient.CreateCommentAsync(comment);
+        }
+    }
+
+    private async Task DeletePost(int id)
+    {
+        await BlogPostApiClient.DeletePostAsync(id);
+
+        posts = await BlogPostApiClient.GetPostsAsync();
+    }
+
+    private async Task CauseError()
+    {
+        await BlogPostApiClient.GetError();
+    }
+}

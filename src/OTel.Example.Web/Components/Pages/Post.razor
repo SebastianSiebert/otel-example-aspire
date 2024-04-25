@@ -1,0 +1,65 @@
+﻿@page "/blog/post/{id:int}"
+@attribute [StreamRendering(true)]
+
+@inject BlogPostApiClient BlogPostApiClient
+@inject BlogCommentApiClient BlogCommentApiClient
+
+<PageTitle>Post</PageTitle>
+
+<h1>Post</h1>
+
+@if (blogPost == null)
+{
+    <p>Loading Post...</p>
+}
+else
+{
+    <h2>@blogPost.Title</h2>
+    <p>@blogPost.PostedAt.ToString("f")</p>
+
+    <p>@blogPost.Content</p>
+}
+
+@if (blogComments == null)
+{
+    <p>Loading Comments...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Datetime</th>
+            <th>Username</th>
+            <th>Comment</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var comment in blogComments)
+        {
+            <tr>
+                <td>@comment.CommentedAt.ToString("f")</td>
+                <td>@comment.Username</td>
+                <td>@comment.Content</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Parameter] public int Id { get; set; }
+
+    public BlogPost? blogPost { get; set; }
+    public List<BlogComment>? blogComments { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var blogPostTask = BlogPostApiClient.GetPostAsync(Id);
+        var blogCommentTask = BlogCommentApiClient.GetCommentsAsync(Id);
+        await Task.WhenAll([blogPostTask, blogCommentTask]);
+
+        blogPost = blogPostTask.Result;
+        blogComments = blogCommentTask.Result;
+    }
+}

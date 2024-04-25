@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTel.Example.AppHost", "OTel.Example.AppHost\OTel.Example.AppHost.csproj", "{2FD74AD4-A574-4F3A-B93E-22962657BC22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTel.Example.ServiceDefaults", "OTel.Example.ServiceDefaults\OTel.Example.ServiceDefaults.csproj", "{490FDA40-C25C-4A06-9120-B78144B3452A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTel.Example.ApiService", "OTel.Example.ApiService\OTel.Example.ApiService.csproj", "{43463D8F-5DA3-4EEF-8ACB-35581EF25FBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTel.Example.Web", "OTel.Example.Web\OTel.Example.Web.csproj", "{360DEEF8-B398-4A9F-803A-3ADFAE203A08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTel.Example.BlogService", "OTel.Example.BlogService\OTel.Example.BlogService.csproj", "{54C3D3F4-44E7-4120-A37E-07E32DC3E295}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTel.Example.Blog.CommentService", "OTel.Example.Blog.CommentService\OTel.Example.Blog.CommentService.csproj", "{828A5A87-443F-44D3-92C1-9A3D35F38DD8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2FD74AD4-A574-4F3A-B93E-22962657BC22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FD74AD4-A574-4F3A-B93E-22962657BC22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FD74AD4-A574-4F3A-B93E-22962657BC22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FD74AD4-A574-4F3A-B93E-22962657BC22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{490FDA40-C25C-4A06-9120-B78144B3452A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{490FDA40-C25C-4A06-9120-B78144B3452A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{490FDA40-C25C-4A06-9120-B78144B3452A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{490FDA40-C25C-4A06-9120-B78144B3452A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43463D8F-5DA3-4EEF-8ACB-35581EF25FBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43463D8F-5DA3-4EEF-8ACB-35581EF25FBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43463D8F-5DA3-4EEF-8ACB-35581EF25FBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43463D8F-5DA3-4EEF-8ACB-35581EF25FBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{360DEEF8-B398-4A9F-803A-3ADFAE203A08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{360DEEF8-B398-4A9F-803A-3ADFAE203A08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{360DEEF8-B398-4A9F-803A-3ADFAE203A08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{360DEEF8-B398-4A9F-803A-3ADFAE203A08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54C3D3F4-44E7-4120-A37E-07E32DC3E295}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54C3D3F4-44E7-4120-A37E-07E32DC3E295}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54C3D3F4-44E7-4120-A37E-07E32DC3E295}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54C3D3F4-44E7-4120-A37E-07E32DC3E295}.Release|Any CPU.Build.0 = Release|Any CPU
+		{828A5A87-443F-44D3-92C1-9A3D35F38DD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{828A5A87-443F-44D3-92C1-9A3D35F38DD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{828A5A87-443F-44D3-92C1-9A3D35F38DD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{828A5A87-443F-44D3-92C1-9A3D35F38DD8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

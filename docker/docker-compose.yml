@@ -1,0 +1,85 @@
+services:
+  otel.example.web:
+    image: otel.example.web
+    build:
+      context: ../src/
+      dockerfile: ../src/OTel.Example.Web/Dockerfile
+    ports:
+      - 8080:8080
+
+  otel.example.blogservice:
+    image: otel.example.blogservice
+    build:
+      context: ../src/
+      dockerfile: ../src/OTel.Example.BlogService/Dockerfile
+    depends_on:
+      - postgres
+
+  otel.example.blog.commentservice:
+    image: otel.example.blog.commentservice
+    build:
+      context: ../src/
+      dockerfile: ../src/OTel.Example.Blog.CommentService/Dockerfile
+    depends_on:
+      - postgres
+  
+  otel.example.apiservice:
+    image: otel.example.apiservice
+    build:
+      context: ../src/
+      dockerfile: ../src/OTel.Example.ApiService/Dockerfile
+    depends_on:
+      - redis
+
+  postgres:
+    image: postgres:16.2
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      
+  redis:
+    image: redis:7.2.4
+
+  otel_collector:
+    image: otel/opentelemetry-collector-contrib:0.99.0
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otelcol-contrig/config.yaml
+    command: --config /etc/otelcol-contrig/config.yaml
+    ports:
+      - 8889:8889
+    depends_on:
+      - jaeger
+
+  prometheus:
+    image: prom/prometheus:v2.51.2
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.56
+    ports:
+      - 16686:16686
+    environment:
+      - METRICS_STORAGE_TYPE=prometheus
+      - PROMETHEUS_SERVER_URL=http://prometheus:9090
+      - PROMETHEUS_QUERY_SUPPORT_SPANMETRICS_CONNECTOR=${PROMETHEUS_QUERY_SUPPORT_SPANMETRICS_CONNECTOR:-true}
+      - PROMETHEUS_QUERY_NAMESPACE=${PROMETHEUS_QUERY_NAMESPACE:-}
+      - PROMETHEUS_QUERY_DURATION_UNIT=${PROMETHEUS_QUERY_DURATION_UNIT:-}
+      - PROMETHEUS_QUERY_NORMALIZE_CALLS=true
+      - PROMETHEUS_QUERY_NORMALIZE_DURATION=true
+
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - ./grafana.ini:/etc/grafana/grafana.ini
+      - ./datasource.yml:/etc/grafana/provisioning/datasources/datasource.yaml
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+    ports:
+      - 3000:3000
+
+volumes:
+  pgdata:

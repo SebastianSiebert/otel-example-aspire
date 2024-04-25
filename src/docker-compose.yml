@@ -1,0 +1,24 @@
+﻿services:
+  otel.example.web:
+    image: otel.example.web
+    build:
+      context: .
+      dockerfile: OTel.Example.Web/Dockerfile
+
+  otel.example.blogservice:
+    image: otel.example.blogservice
+    build:
+      context: .
+      dockerfile: OTel.Example.BlogService/Dockerfile
+
+  otel.example.blog.commentservice:
+    image: otel.example.blog.commentservice
+    build:
+      context: .
+      dockerfile: OTel.Example.Blog.CommentService/Dockerfile
+
+  otel.example.apiservice:
+    image: otel.example.apiservice
+    build:
+      context: .
+      dockerfile: OTel.Example.ApiService/Dockerfile
