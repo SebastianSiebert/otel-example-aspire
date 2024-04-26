@@ -28,6 +28,11 @@ Confirm that Docker is running
 
 Start OTel.Example.AppHost with https
 
+To do so from CLI use in AppHost folder
+
+    dotnet run --launch-profile=https
+
+
 Create Manifest
 
    dotnet run --project .\OTel.Example.AppHost\OTel.Example.AppHost.csproj -- --publisher manifest --output-path ../aspire-manifest.json
