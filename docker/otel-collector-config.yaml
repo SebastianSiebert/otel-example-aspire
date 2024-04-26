@@ -35,3 +35,6 @@ service:
     metrics/spanmetrics:
       receivers: [spanmetrics]
       exporters: [prometheus]
+    metrics:
+      receiver: [otlp]
+      exporters: [prometheus]
